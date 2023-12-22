@@ -1,0 +1,8 @@
+.apartmentsTable {
+  width: 100%
+}
+
+.apartmentsTable th {
+  text-align: left;
+  border-bottom: 1px black solid;
+}

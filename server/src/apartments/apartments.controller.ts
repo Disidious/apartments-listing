@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { ApartmentsService } from './apartments.service';
 import { CreateApartmentDto } from './dto/create-apartment-dto';
+import { NoFilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('apartments')
 export class ApartmentsController {
@@ -17,6 +18,7 @@ export class ApartmentsController {
     }
 
     @Post()
+    @UseInterceptors(NoFilesInterceptor())
     create(@Body(ValidationPipe) createApartmentDto: CreateApartmentDto) {
         return this.apartmentsService.create(createApartmentDto);
     }

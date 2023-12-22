@@ -32,7 +32,6 @@ export class ApartmentsService {
 
     getDetails(id: number) {
         const apartment = this.apartments.find(apartment => apartment.id === id)
-        console.log(apartment)
         if (!apartment) {
             throw new NotFoundException('Apartment not found.')
         }
