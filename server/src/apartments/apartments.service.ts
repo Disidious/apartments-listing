@@ -4,6 +4,8 @@ import './data.json';
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { ApartmentListDto } from './dto/apartment-list-dto';
+import { ApartmentDetailsDto } from './dto/apartment-details-dto';
 
 @Injectable()
 export class ApartmentsService {
@@ -18,7 +20,7 @@ export class ApartmentsService {
         this.apartments = JSON.parse(stringData)
     }
 
-    getList() {
+    getList(): ApartmentListDto[] {
         const list = this.apartments.map(apartment => {
             return {
                 id: apartment.id,
@@ -31,7 +33,7 @@ export class ApartmentsService {
         return list;
     }
 
-    getDetails(id: number) {
+    getDetails(id: number): ApartmentDetailsDto {
         const apartment = this.apartments.find(apartment => apartment.id === id)
         if (!apartment) {
             throw new NotFoundException('Apartment not found.')

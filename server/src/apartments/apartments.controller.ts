@@ -14,20 +14,28 @@ import {
 } from '@nestjs/common';
 import { ApartmentsService } from './apartments.service';
 import { CreateApartmentDto } from './dto/create-apartment-dto';
+import { ApartmentListDto } from './dto/apartment-list-dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { ApiOkResponse } from '@nestjs/swagger';
+import { ApartmentDetailsDto } from './dto/apartment-details-dto';
 
 @Controller('apartments')
 export class ApartmentsController {
     constructor(private readonly apartmentsService: ApartmentsService) {}
 
+    @ApiOkResponse({
+        description: 'The user records',
+        type: ApartmentListDto,
+        isArray: true
+    })
     @Get()
-    getList() {
+    getList(): ApartmentListDto[] {
         return this.apartmentsService.getList()
     }
 
     @Get(':id')
-    getDetails(@Param('id', ParseIntPipe) id: number) {
+    getDetails(@Param('id', ParseIntPipe) id: number): ApartmentDetailsDto {
         return this.apartmentsService.getDetails(id);
     }
 
