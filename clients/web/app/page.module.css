@@ -1,8 +1,7 @@
-.apartmentsTable {
-  width: 100%
-}
-
-.apartmentsTable th {
-  text-align: left;
-  border-bottom: 1px black solid;
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
 }

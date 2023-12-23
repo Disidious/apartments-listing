@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateApartmentDto } from './dto/create-apartment-dto';
-import data from './data.json';
+import './data.json';
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -22,6 +22,7 @@ export class ApartmentsService {
         const list = this.apartments.map(apartment => {
             return {
                 id: apartment.id,
+                image: apartment.image,
                 title: apartment.title,
                 price: apartment.price
             }
@@ -39,15 +40,17 @@ export class ApartmentsService {
         return apartment
     }
 
-    create(createApartmentDto: CreateApartmentDto) {
+    create(createApartmentDto: CreateApartmentDto, image: Express.Multer.File) {
         const newAppartment = {
+            ...createApartmentDto,
             id: (new Date()).getTime(),
-            ...createApartmentDto
+            image: image.filename,
         }
+        
         this.apartments.push(newAppartment)
 
         fs.writeFileSync(
-            path.join(__dirname, "/data2.json"),
+            path.join(__dirname, "/data.json"),
             JSON.stringify(this.apartments),
             'utf-8'
         )

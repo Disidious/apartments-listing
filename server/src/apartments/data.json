@@ -1,9 +1,58 @@
 [
     {
-        "id": 123,
-        "title": "Apartment 123",
-        "address": "Apartment Address",
-        "description": "Apartment Desc",
-        "price": 321
+        "id": 1703284535568,
+        "image": "fdc36dc0-de9e-4621-9226-280d6d2effba.jpg",
+        "address": "Address here",
+        "description": "Description here",
+        "title": "asd",
+        "price": "123"
+    },
+    {
+        "id": 1703286322916,
+        "image": "059af9eb-f642-46de-bd25-eea75f1fbb62.jpg",
+        "address": "Address here",
+        "description": "Description here",
+        "title": "asd",
+        "price": "123123123123"
+    },
+    {
+        "id": 1703286322917,
+        "image": "059af9eb-f642-46de-bd25-eea75f1fbb62.jpg",
+        "address": "Address here",
+        "description": "Description here",
+        "title": "asd",
+        "price": "123123123123"
+    },
+    {
+        "id": 1703286322918,
+        "image": "059af9eb-f642-46de-bd25-eea75f1fbb62.jpg",
+        "address": "Address here",
+        "description": "Description here",
+        "title": "asd",
+        "price": "123123123123"
+    },
+    {
+        "id": 1703286322919,
+        "image": "059af9eb-f642-46de-bd25-eea75f1fbb62.jpg",
+        "address": "Address here",
+        "description": "Description here",
+        "title": "asd",
+        "price": "123123123123"
+    },
+    {
+        "id": 17032863229110,
+        "image": "059af9eb-f642-46de-bd25-eea75f1fbb62.jpg",
+        "address": "Address here",
+        "description": "Description here",
+        "title": "asd",
+        "price": "123123123123"
+    },
+    {
+        "id": 17032863229111,
+        "image": "059af9eb-f642-46de-bd25-eea75f1fbb62.jpg",
+        "address": "Address here",
+        "description": "Description here",
+        "title": "asd",
+        "price": "123123123123"
     }
 ]

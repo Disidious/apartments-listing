@@ -29,6 +29,9 @@
       ],
       "shared": [
         "../shared/index"
+      ],
+      "components": [
+        "./components/index"
       ]
     }
   },

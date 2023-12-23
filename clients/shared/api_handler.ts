@@ -1,10 +1,11 @@
 type Response = {
   json: any;
+  error?: any;
   status: "success" | "failed"
 }
   
 export class ApiHandler {
-  static url = process.env.NEXT_PUBLIC_API_URL
+  static url = ""
   
   static async get(path: string, headers: any = undefined): Promise<Response> {
     try {
@@ -16,9 +17,11 @@ export class ApiHandler {
         }
       })
 
+      
       if(!response.ok) {
         return {
           json: undefined,
+          error: response.body,
           status: "failed"
         }
       }
@@ -31,6 +34,7 @@ export class ApiHandler {
     } catch (error) {
         return {
           json: undefined,
+          error: error,
           status: "failed"
         }
     }
@@ -46,14 +50,16 @@ export class ApiHandler {
         },
       })
 
+      const json = await response.json()
+
       if(!response.ok) {
         return {
           json: undefined,
+          error: json.message,
           status: "failed"
         }
       }
       
-      const json = await response.json()
       return {
         json,
         status: "success"
@@ -61,6 +67,7 @@ export class ApiHandler {
     } catch (error) {
         return {
           json: undefined,
+          error: error,
           status: "failed"
         }
     }

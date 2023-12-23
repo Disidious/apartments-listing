@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
+}
+
+.container a {
+    text-decoration: none;
+    font-size: 20px;
+    margin: 20px;
+    color: black;
+    font-weight: bold;
+}
+
+.container a:active {
+    color: black
+}

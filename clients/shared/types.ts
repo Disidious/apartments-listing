@@ -4,4 +4,5 @@ export type Apartment = {
     address: string;
     description: string;
     price: number;
+    image: string;
 }
