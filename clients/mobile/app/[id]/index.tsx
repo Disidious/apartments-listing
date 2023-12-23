@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
-import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { Apartment, ApiHandler, formatPrice } from 'shared';
 import { useEffect, useState } from 'react';
 
@@ -22,7 +22,7 @@ export default function ApartmentDetails() {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.subContainer}>
                 <Image
                     source={{
@@ -46,17 +46,17 @@ export default function ApartmentDetails() {
                     {apartment.description}
                 </Text>
             </View>
-        </SafeAreaView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        height: "100%",
     },
     subContainer: {
         width: "95%",

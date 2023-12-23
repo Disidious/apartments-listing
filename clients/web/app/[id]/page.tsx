@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react'
 
 import styles from './page.module.css'
-import { ApiHandler, Apartment } from 'shared'
+import { ApiHandler, Apartment, formatPrice } from 'shared'
 
 export default function ApartmentDetails() {
     const params = useParams();
@@ -39,7 +39,7 @@ export default function ApartmentDetails() {
                 {apartmentDetails.address}
             </h3>
             <h2>
-                {apartmentDetails.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} EGP
+                {formatPrice(apartmentDetails.price)} EGP
             </h2>
             <h1>
                 Description

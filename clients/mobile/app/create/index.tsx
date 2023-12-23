@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { ApiHandler } from 'shared';
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
@@ -11,6 +11,7 @@ export default function ApartmentDetails() {
     const [errors, setErrors] = useState<any>({});
     const [image, setImage] = useState<string | null>(null);
 
+    // Responsible for asking permission and accessing the camera roll
     const pickImage = async () => {
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (permissionResult.granted === false) {
@@ -51,6 +52,8 @@ export default function ApartmentDetails() {
 
         let convertedPrice = ""
         let dotFound = false
+
+        // Get rid of all non numeric characters and break if there are two dots
         for (const char of data.price) {
             if (char === "." && dotFound) {
                 break
@@ -67,6 +70,7 @@ export default function ApartmentDetails() {
 
         data.price = +convertedPrice
 
+        // Contruct file form data body for the backend endpoint
         const fileName = image.split('/').pop()
         const fileType = fileName?.split('.').pop()
         data.image = {
@@ -129,7 +133,10 @@ export default function ApartmentDetails() {
     }
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+            style={styles.container}
+            behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+        >
             <View style={styles.inputs}>
                 <View style={styles.inputContainer}>
                     <Text style={styles.inputTitle}>
@@ -167,15 +174,16 @@ export default function ApartmentDetails() {
                 style={styles.submitBtn}
             >
                 <Text style={styles.submitBtnText}>
-                    Submit
+                    Create
                 </Text>
             </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

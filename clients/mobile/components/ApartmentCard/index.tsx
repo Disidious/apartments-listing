@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Apartment, ApiHandler, formatPrice } from 'shared';
 import { router } from 'expo-router';

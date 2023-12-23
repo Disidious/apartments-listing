@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import styles from "./styles.module.css"
-import { CSSProperties, ReactNode } from "react"
 import { Apartment, ApiHandler } from "shared"
 
 type Props = {

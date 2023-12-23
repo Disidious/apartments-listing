@@ -43,7 +43,7 @@ export default function ApartmentCreate() {
                 <input
                     name="image"
                     type="file"
-                    accept="image/png, image/gif, image/jpeg"
+                    accept="image/png, image/jpg, image/jpeg"
                     onChange={(event) => {
                         if (event.target.files != null) {
                             setImage(event.target.files[0])
