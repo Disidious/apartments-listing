@@ -4,6 +4,8 @@ import { ApiHandler } from 'shared';
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
+import { truncateString } from '@/utils';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function ApartmentDetails() {
     const { control, handleSubmit } = useForm();
@@ -33,12 +35,7 @@ export default function ApartmentDetails() {
     };
 
     const getFileName = () => {
-        const name = image?.split('/').pop() ?? ""
-        if (name.length > 15) {
-            return name.substring(0, 15) + "..."
-        }
-
-        return name
+        return image?.split('/').pop() ?? ""
     }
 
     const onSubmit = (data: any) => {
@@ -71,11 +68,11 @@ export default function ApartmentDetails() {
         data.price = +convertedPrice
 
         // Contruct file form data body for the backend endpoint
-        const fileName = image.split('/').pop()
+        const fileName = getFileName()
         const fileType = fileName?.split('.').pop()
         data.image = {
             uri: image,
-            name: image.split('/').pop(),
+            name: fileName,
             type: `image/${fileType}`
         }
 
@@ -105,9 +102,14 @@ export default function ApartmentDetails() {
         setErrors(error)
     }
 
-    const renderInput = (name: string, title: string, numeric: boolean = false) => {
+    const renderInput = (
+        name: string,
+        title: string,
+        numeric: boolean = false,
+        multiline: boolean = false
+    ) => {
         return (
-            <View style={styles.inputContainer}>
+            <View>
                 <Text style={styles.inputTitle}>
                     {title}
                 </Text>
@@ -118,8 +120,16 @@ export default function ApartmentDetails() {
                             {...field}
                             keyboardType={numeric ? 'numeric' : undefined}
                             onChangeText={field.onChange}
-                            style={styles.input}
+                            style={
+                                {
+                                    ...styles.input,
+                                    height: multiline ? 80 : "auto"
+                                }
+                            }
                             placeholder={title}
+                            multiline={multiline}
+                            numberOfLines={multiline ? 3 : 1}
+                            scrollEnabled={multiline}
                         />
                     )}
                     name={name}
@@ -137,46 +147,48 @@ export default function ApartmentDetails() {
             style={styles.container}
             behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
         >
-            <View style={styles.inputs}>
-                <View style={styles.inputContainer}>
-                    <Text style={styles.inputTitle}>
-                        {"Image"}
-                    </Text>
-                    <View style={styles.fileInput}>
-                        <Text
-                            style={styles.fileName}
-                        >
-                            {getFileName()}
+            <ScrollView style={styles.scrollView}>
+                <View>
+                    <View>
+                        <Text style={styles.inputTitle}>
+                            {"Image"}
                         </Text>
-                        <TouchableOpacity
-                            onPress={pickImage}
-                            style={styles.uploadBtn}
-                        >
-                            <Text style={styles.uploadBtnText}>
-                                Choose Image
+                        <View style={styles.fileInput}>
+                            <Text
+                                style={styles.fileName}
+                            >
+                                {truncateString(getFileName(), 20)}
                             </Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                onPress={pickImage}
+                                style={styles.uploadBtn}
+                            >
+                                <Text style={styles.uploadBtnText}>
+                                    Choose Image
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={styles.error}>
+                            {errors["image"]?.message}
+                        </Text>
                     </View>
-                    <Text style={styles.error}>
-                        {errors["image"]?.message}
-                    </Text>
+                    {renderInput("title", "Title")}
+                    {renderInput("address", "Address")}
+                    {renderInput("price", "Price", true)}
+                    {renderInput("description", "Description", false, true)}
                 </View>
-                {renderInput("title", "Title")}
-                {renderInput("address", "Address")}
-                {renderInput("price", "Price", true)}
-                {renderInput("description", "Description")}
-            </View>
-            <Text style={styles.error}>
-                {errors.response}
-            </Text>
-            <TouchableOpacity
-                onPress={handleSubmit(onSubmit, onError)}
-                style={styles.submitBtn}
-            >
-                <Text style={styles.submitBtnText}>
-                    Create
+                <Text style={styles.error}>
+                    {errors.response}
                 </Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={handleSubmit(onSubmit, onError)}
+                    style={styles.submitBtn}
+                >
+                    <Text style={styles.submitBtnText}>
+                        Create
+                    </Text>
+                </TouchableOpacity>
+            </ScrollView>
         </KeyboardAvoidingView>
     );
 }
@@ -185,16 +197,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
+        justifyContent: "center",
         width: "100%",
-        height: "100%",
     },
-    inputs: {
-        width: "95%"
-    },
-    inputContainer: {
-        marginBottom: 10
+    scrollView: {
+        width: "95%",
+        marginTop: 20
     },
     fileInput: {
         display: "flex",
@@ -206,8 +215,8 @@ const styles = StyleSheet.create({
         fontSize: 17,
     },
     uploadBtn: {
-        borderWidth: 2,
-        borderRadius: 10,
+        borderWidth: 1,
+        borderRadius: 5,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -232,11 +241,13 @@ const styles = StyleSheet.create({
     },
     inputTitle: {
         fontSize: 20,
-        marginBottom: 5
     },
     input: {
         fontSize: 17,
-        borderBottomWidth: 1
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: "lightgrey",
+        padding: 5
     },
     error: {
         color: "red"

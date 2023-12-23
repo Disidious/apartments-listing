@@ -45,6 +45,9 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Documentation
+After running the server go on ```/api``` to see the API documentation.
+
 ## Test
 
 ```bash

@@ -17,7 +17,7 @@ export default function Layout() {
                 paddingVertical: 5
             }}>
                 <TouchableOpacity
-                    style={[styles.btn, styles.backBtn]}
+                    style={[styles.btn]}
                     onPress={() => {
                         if (router.canGoBack()) {
                             router.back()
@@ -29,17 +29,24 @@ export default function Layout() {
             </View>
 
             <Slot />
-
-            <TouchableOpacity style={[styles.addBtn, styles.btn]} onPress={() => {
-                router.push("/create")
+            <View style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "100%",
+                padding: 20
             }}>
-                <Entypo name="plus" size={24} color="white" />
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.homeBtn, styles.btn]} onPress={() => {
-                router.push("/")
-            }}>
-                <Entypo name="home" size={24} color="white" />
-            </TouchableOpacity>
+                <TouchableOpacity style={[styles.btn]} onPress={() => {
+                    router.push("/")
+                }}>
+                    <Entypo name="home" size={24} color="white" />
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.btn]} onPress={() => {
+                    router.push("/create")
+                }}>
+                    <Entypo name="plus" size={24} color="white" />
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>
     );
 }
@@ -50,11 +57,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 50,
-        position: "relative"
+        marginTop: 50
     },
     btn: {
-        position: "absolute",
         width: 50,
         height: 50,
         backgroundColor: "#5c55b8",
@@ -62,17 +67,6 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center"
-    },
-    addBtn: {
-        bottom: 20,
-        right: 20,
-    },
-    backBtn: {
-        position: 'relative',
-    },
-    homeBtn: {
-        bottom: 20,
-        left: 20,
     },
     disabled: {
         opacity: 0.5,

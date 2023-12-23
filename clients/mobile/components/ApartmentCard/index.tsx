@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { Apartment, ApiHandler, formatPrice } from 'shared';
 import { router } from 'expo-router';
+
+import { Apartment, ApiHandler, formatPrice } from 'shared';
+import { truncateString } from '@/utils';
 
 type Props = {
     apartment: Partial<Apartment>;
@@ -21,7 +23,7 @@ export default function ApartmentCard({
             />
             <View style={styles.content}>
                 <Text style={styles.header}>
-                    {apartmentDetails.title}
+                    {truncateString(apartmentDetails.title!, 20)}
                 </Text>
                 <Text style={styles.price}>
                     {formatPrice(apartmentDetails.price!)} EGP
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
     header: {
-        fontSize: 25
+        fontSize: 20
     },
     price: {
         fontSize: 17,

@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { Apartment, ApiHandler, formatPrice } from 'shared';
 import { useEffect, useState } from 'react';
 
@@ -23,7 +23,7 @@ export default function ApartmentDetails() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.subContainer}>
+            <ScrollView style={styles.subContainer}>
                 <Image
                     source={{
                         uri: ApiHandler.getImageUrl(apartment.image)
@@ -45,7 +45,7 @@ export default function ApartmentDetails() {
                 <Text>
                     {apartment.description}
                 </Text>
-            </View>
+            </ScrollView>
         </View>
     );
 }
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         objectFit: "cover",
     },
     title: {
-        fontSize: 40,
+        fontSize: 35,
         fontWeight: "bold"
     },
     address: {

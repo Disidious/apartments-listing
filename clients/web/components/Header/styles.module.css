@@ -1,19 +1,23 @@
 .container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid black;
+    border-radius: 10px;
+    background-color: #5c55b8df;
     margin-bottom: 20px;
 }
 
 .container a {
     text-decoration: none;
-    font-size: 20px;
+    font-size: 15px;
     margin: 20px;
-    color: black;
+    color: white;
     font-weight: bold;
 }
 
 .container a:active {
     color: black
+}
+
+.container a:hover {
+    opacity: 0.5;
 }

@@ -34,6 +34,15 @@ export default function ApartmentCreate() {
         )
     }
 
+    const renderInput = (name: string, title: string, numeric: boolean = false) => (
+        <>
+            <label>
+                {title}
+            </label>
+            <input className={styles.textInput} name={name} type={numeric ? "number" : "text"} required />
+        </>
+    )
+
     return (
         <div className={styles.container}>
             <form action={createApartment} className={styles.form}>
@@ -49,28 +58,17 @@ export default function ApartmentCreate() {
                             setImage(event.target.files[0])
                         }
                     }}
+                    className={styles.imageInput}
                     required
                 />
 
-                <label>
-                    Title
-                </label>
-                <input name="title" required />
-
-                <label>
-                    Address
-                </label>
-                <input name="address" required />
-
-                <label>
-                    Price
-                </label>
-                <input name="price" type="number" required />
-
+                {renderInput("title", "Title")}
+                {renderInput("address", "Address")}
+                {renderInput("price", "Price", true)}
                 <label>
                     Description
                 </label>
-                <input name="description" required />
+                <textarea className={styles.textInput} name={"description"} required />
 
                 <button disabled={loading} type="submit">
                     Create
