@@ -84,4 +84,8 @@ export class ApiHandler {
   static async getApartmentDetails(id: string | number) {
     return await this.get(`/apartments/${id}`)
   }
+
+  static getImageUrl(image: string) {
+    return `${ApiHandler.url}/${image}`
+  }
 }

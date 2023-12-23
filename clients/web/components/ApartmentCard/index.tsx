@@ -17,7 +17,7 @@ export default function ApartmentCard({
     return (
         <Link href={href} className={styles.container}>
             <img
-                src={process.env.NEXT_PUBLIC_API_URL + "/" + (apartment.image ?? "")}
+                src={ApiHandler.getImageUrl(apartment.image!)}
                 className={styles.image}
             />
             <div className={styles.content}>

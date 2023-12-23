@@ -3,14 +3,11 @@ import {
     Controller, 
     FileTypeValidator, 
     Get, 
-    Headers, 
-    Logger, 
     MaxFileSizeValidator, 
     Param, 
     ParseFilePipe, 
     ParseIntPipe, 
     Post, 
-    Request, 
     UploadedFile, 
     UseInterceptors, 
     ValidationPipe 
@@ -19,7 +16,6 @@ import { ApartmentsService } from './apartments.service';
 import { CreateApartmentDto } from './dto/create-apartment-dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import path from 'path';
 
 @Controller('apartments')
 export class ApartmentsController {

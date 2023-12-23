@@ -1,24 +1,35 @@
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { ApiHandler } from 'shared'
+import { ApiHandler, Apartment } from 'shared'
+import { ApartmentCard } from 'components';
 
 ApiHandler.url = process.env.EXPO_PUBLIC_API_URL!
 
 export default function App() {
+  const [apartments, setApartments] = useState<Partial<Apartment>[]>([]);
+
   useEffect(() => {
     ApiHandler.getApartmentsList().then(
       (response) => {
-        console.log(response.json)
+        if (response.status === "success") {
+          setApartments(response.json);
+        }
       }
     )
   }, [])
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollContainer}>
+        {
+          apartments.map((apartment) => (
+            <ApartmentCard key={apartment.id} apartment={apartment} />
+          ))
+        }
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -28,5 +39,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 50
   },
+  scrollContainer: {
+    width: "95%",
+    height: "100%",
+    display: "flex",
+  }
 });

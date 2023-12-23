@@ -30,7 +30,7 @@ export default function ApartmentDetails() {
         <div className={styles.container}>
             <img
                 className={styles.image}
-                src={`${process.env.NEXT_PUBLIC_API_URL}/${apartmentDetails.image}`}
+                src={ApiHandler.getImageUrl(apartmentDetails.image)}
             />
             <h1>
                 {apartmentDetails.title}
